@@ -10,4 +10,4 @@ DB:
 <p>db name: laravel</p> 
 <p>port: 3306</p>
 <p>login: root</p>
-pass: root
+<p>pass: root</p>
