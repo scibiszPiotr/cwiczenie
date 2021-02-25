@@ -11,3 +11,6 @@ DB:
 <p>port: 3306</p>
 <p>login: root</p>
 <p>pass: root</p>
+
+URLE:
+1. Widok pojedyńczego produktu: http://localhost:8080/product/{id}
