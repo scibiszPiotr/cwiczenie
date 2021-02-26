@@ -59,19 +59,6 @@ class ProductService
 
     public function get(int $id): array
     {
-        $product = Product::findOrFail($id);
-        $response = $product->toArray();
-
-        foreach ($product->variant()->get() as $key => $variant) {
-            $response['variants'][$key] = $variant;
-            foreach (
-                $variant->attribute()
-                    ->get() as $attribute
-            ) {
-                $response['variants'][$key]['attribute'][] = $attribute;
-            }
-        }
-
-        return $response;
+        return SingleProductProjector::convert(Product::findOrFail($id));
     }
 }
