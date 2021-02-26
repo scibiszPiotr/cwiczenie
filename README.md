@@ -58,3 +58,6 @@ Założyłem nadrzędność tablicy `products`, którą połączyłem relacją o
 Użyłem takiego podejścia, gdyż założyłem, że każdy produkt w bazie jest unikatowy. Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
 Mamy do sprzedania auta VP Golf - czyli produkt. Każdy Golfy może być sprzedany w wybranym wariancie (konfort, ekonimiczny czy sport). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty.
 Podczas sprzedaży do klienta przypisywany byłby id produktu. 
+
+### Mechanizm aktualizacji ofert
+Przy tym podejściu w myślę, że oferta traciłaby dostępność dopiero w momencie zawarcia umowy zakupy. Nastąpiłaby rywalizacja, czyli podejście nie najlepsze dla sklepu internetowego, ale nadające się do firmy, która ma ograniczone możliwości produkcji kastomizacji pdoduktu dla swoich klientów.
