@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductsRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductsAPIController extends Controller
 {
@@ -21,5 +24,17 @@ class ProductsAPIController extends Controller
         }
 
         return response()->json(['product' => $response]);
+    }
+
+    /**
+     * Walidacja pól została wyniesiona do klasy ProductsRequest
+     */
+    public function filter(ProductsRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $results = DB::table('products');
+
+        return response()->json($results->select()->get());
     }
 }

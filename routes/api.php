@@ -22,3 +22,11 @@ Route::get(
     ]
 )
     ->where('id', '[0-9]+');
+
+Route::get(
+    '/products',
+    [
+        ProductsAPIController::class,
+        'filter'
+    ]
+);
