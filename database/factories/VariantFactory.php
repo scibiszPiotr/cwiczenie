@@ -25,7 +25,8 @@ class VariantFactory extends Factory
         return [
             'price' => $this->faker->numberBetween(1, 10000),
             'rate' => $this->faker->numberBetween(0, 100),
-            'image_url' => $this->faker->imageUrl()
+            'image_url' => $this->faker->imageUrl(),
+            'product_id' => rand(1,3)
         ];
     }
 }

@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->enum('type', ['book', 'newspaper', 'ebook']);
             $table->text('description');
             $table->string('image_url');
-            $table->timestamps();
+            $table->integer('amount');
         });
     }
 

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attribute;
-use App\Models\Product;
-use App\Models\Variant;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductSeeder extends Seeder
 {
@@ -16,6 +15,6 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()->count(300)->has(Variant::factory()->count(3)->has(Attribute::factory()->count(3)))->create();
+        DB::unprepared(File::get( __DIR__. "/seeds.sql" ));
     }
 }
