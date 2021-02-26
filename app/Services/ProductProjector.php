@@ -10,8 +10,5 @@ class ProductProjector
     public static function convert(Collection $collection): array
     {
         return $collection->toArray();
-        foreach ($collection as $product) {
-            dd($product);
-        }
     }
 }

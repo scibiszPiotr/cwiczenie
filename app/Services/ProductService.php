@@ -20,7 +20,7 @@ class ProductService
 
     public function getByParameters(array $data): array
     {
-        $sql = DB::table(self::PRODUCTS)->join(self::VARIANTS, 'products.id', '=', 'variants.product_id');
+        $sql = DB::table(self::PRODUCTS)->leftJoin(self::VARIANTS, 'products.id', '=', 'variants.product_id');
 
         if (isset($data[self::DESCRIPTION])) {
             $sql->where(self::DESCRIPTION, 'LIKE', "%{$data[self::DESCRIPTION]}%");
@@ -42,7 +42,20 @@ class ProductService
             }
         }
 
-        return ProductProjector::convert($sql->select()->get());
+        return ProductProjector::convert(
+            $sql->select(
+                [
+                    'products.*',
+                    'variants.id as v_id',
+                    'variants.price',
+                    'variants.rate',
+                    'variants.image_url as v_image_url',
+                    'attributes.id as a_id',
+                    'attributes.a_name',
+                    'attributes.a_value']
+            )
+                ->get()
+        );
     }
 
     public function get(int $id): array
@@ -50,10 +63,7 @@ class ProductService
         $product = Product::findOrFail($id);
         $response = $product->toArray();
 
-        foreach (
-            $product->variant()
-                ->get() as $key => $variant
-        ) {
+        foreach ($product->variant()->get() as $key => $variant) {
             $response['variants'][$key] = $variant;
             foreach (
                 $variant->attribute()
