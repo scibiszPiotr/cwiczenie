@@ -55,4 +55,6 @@ W tym zadaniu nie posłużyłem się ORM, ponieważ byłby mniej wydajny. Świet
 Na podstawie mojego zrozumienia opisu zadania przygotowałem strukturę db. <br>
 Baza składa się z 3 tablic, `products`, `variants` i `attributes`.
 Założyłem nadrzędność tablicy `products`, którą połączyłem relacją one to many z tablicą `variants`. Również taką relacją one to many połączyłem tablicę `variants` i `attributes`.
-Użyłem takiego podejścia, gdyż założyłem, że każdy produkt w bazie jest unikatowy.
+Użyłem takiego podejścia, gdyż założyłem, że każdy produkt w bazie jest unikatowy. Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
+Mamy do sprzedania auta VP Golf - czyli produkt. Każdy Golfy może być sprzedany w wybranym wariancie (konfort, ekonimiczny czy sport). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty.
+Podczas sprzedaży do klienta przypisywany byłby id produktu. 

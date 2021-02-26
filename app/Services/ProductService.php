@@ -19,7 +19,8 @@ class ProductService
 
     public function getByParameters(array $data): array
     {
-        $sql = DB::table(self::PRODUCTS)->leftJoin(self::VARIANTS, 'products.id', '=', 'variants.product_id');
+        $sql = DB::table(self::PRODUCTS)->leftJoin(self::VARIANTS, 'products.id', '=', 'variants.product_id')
+             ->leftJoin(self::ATTRIBUTES, 'variants.id', '=', 'attributes.variant_id');
 
         if (isset($data[self::DESCRIPTION])) {
             $sql->where(self::DESCRIPTION, 'LIKE', "%{$data[self::DESCRIPTION]}%");
@@ -30,8 +31,6 @@ class ProductService
         }
 
         if (isset($data[self::A_NAME]) || isset($data[self::A_VALUE])) {
-            $sql->leftJoin(self::ATTRIBUTES, 'variants.id', '=', 'attributes.variant_id');
-
             if (isset($data[self::A_NAME])) {
                 $sql->where(self::A_NAME, '=', $data[self::A_NAME]);
             }
