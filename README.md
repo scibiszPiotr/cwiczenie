@@ -18,7 +18,7 @@ Przygotowałem POC przy użyciu Laravela. Wybrałem tak, ponieważ na codzień p
 
 Jako db MySQL, gdyż jest wystarczający do tego zadania oraz łatwy w użyciu.
 
-Jako prezentację danych wybieram API, ponieważ budowanie frontu nawet przy pomocy bootstrapa jest czasochłonne, dodatkowo nie jestem forntendowcem i nigdy nim nie będę ;), więc front wyglądałby jak przygotowany przez typowego programistę - kwadratowo ;)
+Jako prezentację danych wybieram API, ponieważ budowanie frontu nawet przy pomocy bootstrapa jest czasochłonne, dodatkowo nie jestem forntendowcem ;)
 A API można wykorzystać np. do React, czy jako mikro-serwis.
 
 ### Dostępne url'e
