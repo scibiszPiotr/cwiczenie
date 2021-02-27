@@ -11,7 +11,7 @@ class ProductsAPIController extends Controller
 {
     public function get(ProductService $productService, int $id): JsonResponse
     {
-        return response()->json(['product' => $productService->get($id)]);
+        return response()->json($productService->get($id));
     }
 
     /**

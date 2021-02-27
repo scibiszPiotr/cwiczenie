@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
@@ -40,7 +39,8 @@ class ProductService
             }
         }
 
-        return ProductProjector::convert(
+        $productProjector = new ProductProjector($data[self::ORDER_BY] ?? 'price', $data[self::ORDER] ?? 'ASC');
+        return $productProjector->convert(
             $sql->select(
                 [
                     'products.*',
@@ -58,6 +58,28 @@ class ProductService
 
     public function get(int $id): array
     {
-        return SingleProductProjector::convert(Product::findOrFail($id));
+        $response = DB::table(self::PRODUCTS)->leftJoin(self::VARIANTS, 'products.id', '=', 'variants.product_id')
+            ->leftJoin(self::ATTRIBUTES, 'variants.id', '=', 'attributes.variant_id')
+            ->where('products.id', '=', $id)
+            ->select(
+                [
+                    'products.*',
+                    'variants.id as v_id',
+                    'variants.price',
+                    'variants.rate',
+                    'variants.image_url as v_image_url',
+                    'attributes.id as a_id',
+                    'attributes.a_name',
+                    'attributes.a_value']
+            )
+            ->get();
+
+        if ($response->count() === 0) {
+            return [];
+        }
+
+        $singleProductProjector = new SingleProductProjector;
+
+        return $singleProductProjector->convert($response);
     }
 }
