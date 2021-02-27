@@ -15,7 +15,7 @@ pass: root</br>
 ### Dlaczego taka technologia
 Przygotowałem POC przy użyciu Laravela. Wybrałem tak, ponieważ na codzień pracuję z Larvą, więc spędzę najmniej czasu nad zadaniem wybierając technologię, którą w tym momencie znam najbardziej. Zwłaszcza że jest to zadanie rekrutacyjne, a nie biznesowy projekt, więc nie będzie używany na codziennie. 
 
-Jako db mySQL, gdyż jest wystarczający do tego zadania oraz łatwy w użyciu.
+Jako db MySQL, gdyż jest wystarczający do tego zadania oraz łatwy w użyciu.
 
 Jako prezentację danych wybieram API, ponieważ budowanie frontu nawet przy pomocy bootstrapa jest czasochłonne, dodatkowo nie jestem forntendowcem i nigdy nim nie będę ;), więc front wyglądałby jak przygotowany przez typowego programistę - kwadratowo ;)
 A API można wykorzystać np. do React, czy jako mikro-serwis.
@@ -42,9 +42,9 @@ orderBy | price/rate
 W tym zadaniu nie posłużyłem się ORM, ponieważ byłby mniej wydajny. Świetnie sprawdza się do CRUD, ale nie do filtrowania większej ilości rekordów.
 
 ### Jakie klasy są przygotowane w ramach zadania:
- 1.  Aby wygenerować db oraz nepełnić ją danymi wykożystałem mechanim migracji oraz seeder.
+ 1.  Aby wygenerować db oraz nepełnić ją danymi wykorzystałem mechanizm migracji i seeder.
  - pliki migracji znajdują się w `database/migrations`
- - pliki seeder'a znajdują się w `database/seeders`, a aby seeder potrafił wygenerować dane należało stworzyć factories, które znajdują się w `database/factories`
+ - pliki seeder'a znajdują się w `database/seeders`, a aby seeder potrafił wygenerować dane, należało stworzyć factories, które znajdują się w `database/factories`
  2. routing jest oczywiście w `routes/api.php` oraz `web.php`
  3. controllers znajdują się w `app/Http/Controllers`
  4. validator danych dla url z filtrem znaduje się w `app/Http/Requests`
@@ -55,9 +55,10 @@ W tym zadaniu nie posłużyłem się ORM, ponieważ byłby mniej wydajny. Świet
 Na podstawie mojego zrozumienia opisu zadania przygotowałem strukturę db. <br>
 Baza składa się z 3 tablic, `products`, `variants` i `attributes`.
 Założyłem nadrzędność tablicy `products`, którą połączyłem relacją one to many z tablicą `variants`. Również taką relacją one to many połączyłem tablicę `variants` i `attributes`.
-Użyłem takiego podejścia, gdyż założyłem, że każdy produkt w bazie jest unikatowy. Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
-Mamy do sprzedania auta VP Golf - czyli produkt. Każdy Golfy może być sprzedany w wybranym wariancie (konfort, ekonimiczny czy sport). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty.
-Podczas sprzedaży do klienta przypisywany byłby id produktu. 
+Użyłem takiego podejścia, gdyż założyłem, że każdy projekt ma określoną ilość sztuk (może być to 1 szt lub 1000 szt). Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
+Mamy do sprzedania auta VW - czyli produkt. Każdy VW może być sprzedany w wybranym wariancie, czyli modelu (Golf, Polo, T-Rok). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty (kolor tapicerki, kolor nadwozia, rodzaj silnika).
 
 ### Mechanizm aktualizacji ofert
-Przy tym podejściu w myślę, że oferta traciłaby dostępność dopiero w momencie zawarcia umowy zakupy. Nastąpiłaby rywalizacja, czyli podejście nie najlepsze dla sklepu internetowego, ale nadające się do firmy, która ma ograniczone możliwości produkcji kastomizacji pdoduktu dla swoich klientów.
+Przy opisanym podejściu aktualizacja oferty mogłaby odbywać się poprzez dodanie kolejnej kolumny w tablicy products. Jeśli ktoś wkładałby produkt do koszyka, to w tej kolumnie można zapisać ilość produktów znajdujących się w koszyku. Oczywiście max wartość kolumny nie może być większa od ilości produktów. 
+Dopiero w momencie zakupy zmniejszałaby się ilość produktu oraz ilość zablokowanego produktu. <br>
+Takie podejście rozwiązuje wyścig przy zakupie. Pozwala również, na pokazywanie ile jest jeszcze dostępnych produktów. 
