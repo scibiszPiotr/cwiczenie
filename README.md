@@ -1,7 +1,7 @@
 # HOW TO
 
 1. `git clone https://github.com/scibiszPiotr/cwiczenie`
-2. `cd cwiczenie && composer install`
+2. `cd cwiczenie && composer install && cp .env.example .env`
 3. `docker-compose up -d`
 4. `php artisan migrate:fresh --seed`
 5. `php artisan serve --port 8080`
@@ -41,6 +41,8 @@ order | DESC/ASC
 orderBy | price/rate
 
 W tym zadaniu nie posłużyłem się ORM, ponieważ byłby mniej wydajny. Świetnie sprawdza się do CRUD, ale nie do filtrowania większej ilości rekordów.
+<br>
+Gdy wchodzimy na filtrowanie bez parametrów, to widzimy produkty w każdej możliwej kombinacji. Jest to celowy zabieg pokazujący, jakie są możliwości zakupy tego produktu. 
 
 ### Jakie klasy są przygotowane w ramach zadania:
  1.  Aby wygenerować db oraz nepełnić ją danymi wykorzystałem mechanizm migracji i seeder.
