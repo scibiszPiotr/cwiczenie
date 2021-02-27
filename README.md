@@ -22,10 +22,13 @@ Jako prezentację danych wybieram API, ponieważ budowanie frontu nawet przy pom
 A API można wykorzystać np. do React, czy jako mikro-serwis.
 
 ### Dostępne url'e
-1. Widok pojedyńczego produktu.
-   Do jego stworzenia wybrałem ORM, ponieważ jest to zapytanie o jeden produkt, więc jest to zapytanie, dość proste. Dodatkowo korzystając z ORM mamy do dyspozycji wszystkie jego możliwość. W tym wypadku ORM nie spowalnia pobierania wyników z db.
-  - http://localhost:8080/product/{id}
-  - http://localhost:8080/api/product/{id}
+1. Widok pojedynczego produktu.
+ - Do jego stworzenia wybrałem ORM, ponieważ jest to zapytanie o jeden produkt, więc jest to zapytanie, dość proste. Dodatkowo korzystając z ORM mamy do dyspozycji wszystkie jego możliwość, które są przydatne, jeśli tworzymy front w blade.
+   http://localhost:8080/product/{id}
+
+ - Widok pojedynczego produktu by API <br>
+    Tutaj użyłem zapytania sql, a nie ORM. Powód jest prosty, strona przy użyciu ORM miała TTFB około 160 ms, a przy zapytaniu sql 60 ms.
+  http://localhost:8080/api/product/{id}
 
 2. Filtrowanie i sortowanie wszystkich produktów.
 Url do filtrowania wyników po parametrach:
@@ -40,10 +43,6 @@ a_value | text
 order | DESC/ASC
 orderBy | price/rate
 
-W tym zadaniu nie posłużyłem się ORM, ponieważ byłby mniej wydajny. Świetnie sprawdza się do CRUD, ale nie do filtrowania większej ilości rekordów.
-<br>
-Gdy wchodzimy na filtrowanie bez parametrów, to widzimy produkty w każdej możliwej kombinacji. Jest to celowy zabieg pokazujący, jakie są możliwości zakupy tego produktu. 
-
 ### Jakie klasy są przygotowane w ramach zadania:
  1.  Aby wygenerować db oraz nepełnić ją danymi wykorzystałem mechanizm migracji i seeder.
  - pliki migracji znajdują się w `database/migrations`
@@ -55,10 +54,10 @@ Gdy wchodzimy na filtrowanie bez parametrów, to widzimy produkty w każdej moż
  6. serwis do pobierania danych oraz projektor umieściłem w `app/Services`
 
 ### Struktura db
-Na podstawie mojego zrozumienia opisu zadania przygotowałem strukturę db. <br>
+Na podstawie mojego zrozumienia opisu zadania, przygotowałem strukturę db. <br>
 Baza składa się z 3 tablic, `products`, `variants` i `attributes`.
 Założyłem nadrzędność tablicy `products`, którą połączyłem relacją one to many z tablicą `variants`. Również taką relacją one to many połączyłem tablicę `variants` i `attributes`.
-Użyłem takiego podejścia, gdyż założyłem, że każdy projekt ma określoną ilość sztuk (może być to 1 szt lub 1000 szt). Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
+Użyłem takiego podejścia, gdyż założyłem, że każdy projekt ma określoną ilość sztuk (może być to 1 szt czt też 1000 szt). Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
 Mamy do sprzedania auta VW - czyli produkt. Każdy VW może być sprzedany w wybranym wariancie, czyli modelu (Golf, Polo, T-Rok). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty (kolor tapicerki, kolor nadwozia, rodzaj silnika).
 
 Wybierając takie rozwiązanie, zmniejszamy ilość rekordów w bazie, ponieważ mamy 3 pozycje `produkts`, a nie 300. Idąc dalej mamy mniej rekordów w tablicy `variants` i dużo mniej rekordów w `attributes`. Mniejsza ilość rekordów to krótszy czas pobierania wyników. Unikamy też szybkiego puchnięcia db przy dodawaniu kolejnych produktów jako pojedyńcze wpisy. 
