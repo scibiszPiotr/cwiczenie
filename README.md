@@ -58,6 +58,8 @@ Założyłem nadrzędność tablicy `products`, którą połączyłem relacją o
 Użyłem takiego podejścia, gdyż założyłem, że każdy projekt ma określoną ilość sztuk (może być to 1 szt lub 1000 szt). Myślę, że realnym przykładem tego podejścia jest sprzedaż aut przez dilera. np.
 Mamy do sprzedania auta VW - czyli produkt. Każdy VW może być sprzedany w wybranym wariancie, czyli modelu (Golf, Polo, T-Rok). A każdy z tych wariantów można indywidualnie zmodyfikować na życzenie klienta, czyli atrybuty (kolor tapicerki, kolor nadwozia, rodzaj silnika).
 
+Wybierając takie rozwiązanie, zmniejszamy ilość rekordów w bazie, ponieważ mamy 3 pozycje `produkts`, a nie 300. Idąc dalej mamy mniej rekordów w tablicy `variants` i dużo mniej rekordów w `attributes`. Mniejsza ilość rekordów to krótszy czas pobierania wyników. Unikamy też szybkiego puchnięcia db przy dodawaniu kolejnych produktów jako pojedyńcze wpisy. 
+
 ### Mechanizm aktualizacji ofert
 Przy opisanym podejściu aktualizacja oferty mogłaby odbywać się poprzez dodanie kolejnej kolumny w tablicy products. Jeśli ktoś wkładałby produkt do koszyka, to w tej kolumnie można zapisać ilość produktów znajdujących się w koszyku. Oczywiście max wartość kolumny nie może być większa od ilości produktów. 
 Dopiero w momencie zakupy zmniejszałaby się ilość produktu oraz ilość zablokowanego produktu. <br>
