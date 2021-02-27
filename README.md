@@ -1,16 +1,17 @@
 # HOW TO
 
-1. git clone https://github.com/scibiszPiotr/cwiczenie
-2. cd cwiczenie && docker-compose up -d
-3. php artisan migrate:fresh --seed
-4. php artisan serve --port 8080
+1. `git clone https://github.com/scibiszPiotr/cwiczenie`
+2. `cd cwiczenie && composer install`
+3. `docker-compose up -d`
+4. `php artisan migrate:fresh --seed`
+5. `php artisan serve --port 8080`
 
 ###DB connection: <br>
-127.0.0.1
-db name: laravel</br> 
-port: 3306</br>
-login: root</br>
-pass: root</br>
+host: `127.0.0.1` <br>
+db name: `laravel`</br> 
+port: `3306`</br>
+login: `root`</br>
+pass: `root`</br>
 
 ### Dlaczego taka technologia
 Przygotowałem POC przy użyciu Laravela. Wybrałem tak, ponieważ na codzień pracuję z Larvą, więc spędzę najmniej czasu nad zadaniem wybierając technologię, którą w tym momencie znam najbardziej. Zwłaszcza że jest to zadanie rekrutacyjne, a nie biznesowy projekt, więc nie będzie używany na codziennie. 
